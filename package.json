@@ -19,6 +19,7 @@
   "homepage": "https://github.com/yzhbankov/stock-market#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "mongodb": "^2.2.16"
   }
 }

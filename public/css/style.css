@@ -1,6 +1,13 @@
 body{
     background-color: black;
 }
+.title{
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .footer{
     position: absolute;
     bottom: 0;
