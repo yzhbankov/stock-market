@@ -1,0 +1,23 @@
+{
+  "name": "stock-market",
+  "version": "1.0.0",
+  "description": "stock market",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yzhbankov/stock-market.git"
+  },
+  "author": "yzhbankov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yzhbankov/stock-market/issues"
+  },
+  "homepage": "https://github.com/yzhbankov/stock-market#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

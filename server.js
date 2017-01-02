@@ -2,10 +2,11 @@
  * Created by Iaroslav Zhbankov on 02.01.2017.
  */
 var express = require('express');
-
 var app = express();
 
 app.use('/', express.static('public'));
+
+
 
 app.get('/', function(req, res){
     res.sendFile("index.html");
