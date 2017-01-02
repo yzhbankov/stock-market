@@ -1,7 +1,7 @@
 body{
 }
 .title{
-    font-size: 25px;
+    font-size: 35px;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -12,13 +12,20 @@ body{
     margin-bottom: 20px;
 }
 .labelElement{
-    border-style: solid;
-    border-width: 1px;
-    border-color: lightgrey;
+    border:1px solid #bbb;
+    border-left-width: 5px;
     background-color: ghostwhite;
-    margin-left: 2px;
+    margin-bottom: 2px;
+}
+.labelElement:hover{
+    border:1px solid #bb311c;
+    border-left-width: 5px;
+    background-color: ghostwhite;
 }
 
+.labels-container{
+height:320px;
+}
 .footer{
     position: relative;
     margin-top: 20px;
