@@ -23,7 +23,6 @@ app.get('/stock', function (req, res) {
                 console.log("no stocks");
                 res.send(null);
             } else {
-                console.log(items);
                 res.send(items);
             }
         });
@@ -35,6 +34,7 @@ app.get('/addstock/:stockname/:start/:end', function (req, res) {
     var startDate = req.params.start; //'2014-01-01';
     var endDate = req.params.end; //'2016-12-31';
     var stockName = req.params.stockname;
+
     var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockName + '.json?column_index=4&start_date=' + startDate + '&end_date=' + endDate + '&collapse=monthly&api_key=' + apiKey;
     https.get(url, function (response) {
         var output = '';
@@ -57,7 +57,7 @@ app.get('/addstock/:stockname/:start/:end', function (req, res) {
                         } else {
                             db.collection('stocks').insertOne({
                                 "stockname": obj.dataset.dataset_code,
-                                "stockDescription": obj.dataset.description,
+                                "stockDescription": obj.dataset.name,
                                 "data": obj.dataset.data
                             }, function (err, result) {
                                 if (!err) {

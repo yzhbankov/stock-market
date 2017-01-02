@@ -6,7 +6,21 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.addStock{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.labelElement{
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    background-color: ghostwhite;
+    margin-left: 2px;
+}
+
 .footer{
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
 }

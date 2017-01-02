@@ -35,11 +35,12 @@ getSetOfXY(dataSet);
 var ctx = document.getElementById("myChart").getContext("2d");
 
 var data = {
-    labels: dataSet[0]['x-data'],
+    labels: dataSet[0]['x-data'].reverse(),
     datasets: []
 };
 
 for (var i = 0; i < dataSet.length; i++) {
+
     data.datasets.push(
         {
             label: dataSet[i].stockname,
@@ -60,7 +61,7 @@ for (var i = 0; i < dataSet.length; i++) {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: dataSet[i]['y-data'],
+            data: dataSet[i]['y-data'].reverse(),
             spanGaps: false
         }
     );
@@ -82,13 +83,13 @@ var myLineChart = new Chart(ctx, {
 var labels = document.querySelector(".labels-js");
 for (var i = 0; i < dataSet.length; i++) {
     var label = document.createElement("div");
-    label.setAttribute('class', 'col-md-3');
+    label.setAttribute('class', 'col-md-3 labelElement');
     var labelName = document.createElement("div");
     var labelDescription = document.createElement("div");
     var deleteButton = document.createElement("button");
     deleteButton.innerText = 'delete';
     deleteButton.setAttribute('data-name', dataSet[i].stockname);
-    deleteButton.setAttribute('class', 'btn, btn-default');
+    deleteButton.setAttribute('class', 'btn btn-default');
     deleteButton.setAttribute('id', 'delete');
     labelName.innerText = dataSet[i].stockname;
     labelDescription.innerText = dataSet[i].stockDescription;
