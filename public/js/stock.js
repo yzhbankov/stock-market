@@ -7,24 +7,42 @@ var url = 'http://localhost:3000/stock';
 xmlHttp.open("GET", url, false);
 xmlHttp.send(null);
 var dataSet = JSON.parse(xmlHttp.responseText);
-
-/*
-console.log(dataSet.dataset);
-var fullData = dataSet.dataset.data;
-var dataX = [];
-var dataY = [];
-fullData.forEach(function (item, index) {
-    dataX.push(item[0]);
-    dataY.push(item[1]);
+$(".add_stock").on("click", function () {
+    var xmlHttp = new XMLHttpRequest();
+    var url = 'http://localhost:3000/addstock/' + $('.stockname').val() + '/2014-01-01/2016-12-31';
+    xmlHttp.open("GET", url, false);
+    xmlHttp.send(null);
 });
+
+function getSetOfXY(objec) {
+    var xData = [];
+    var yData = [];
+    objec.forEach(function (item, index) {
+        item.data.forEach(function (item, index) {
+            xData.push(item[0]);
+            yData.push(item[1]);
+        });
+        item['x-data'] = xData;
+        xData = [];
+        item['y-data'] = yData;
+        yData = [];
+    });
+}
+getSetOfXY(dataSet);
+
 
 var ctx = document.getElementById("myChart").getContext("2d");
 
 var data = {
-    labels: dataX,
+    labels: dataSet[0]['x-data'],
     datasets: [
+    ]
+};
+
+for (var i = 0; i < dataSet.length; i++){
+    data.datasets.push(
         {
-            label: "My First dataset",
+            label: dataSet[i].stockname,
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -42,11 +60,13 @@ var data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: dataY,
+            data: dataSet[i]['y-data'],
             spanGaps: false
         }
-    ]
-};
+    );
+}
+
+//console.log(data);
 
 var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -59,10 +79,9 @@ var myLineChart = new Chart(ctx, {
         }
     }
 });
-*/
 
 
 /*var xmlHttp = new XMLHttpRequest();
-var url = 'http://localhost:3000/stock/IBM/2014-01-01/2016-12-31';
-xmlHttp.open("GET", url, false);
-xmlHttp.send(null);*/
+ var url = 'http://localhost:3000/stock/IBM/2014-01-01/2016-12-31';
+ xmlHttp.open("GET", url, false);
+ xmlHttp.send(null);*/

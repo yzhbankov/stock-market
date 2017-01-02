@@ -47,7 +47,7 @@ app.get('/stock', function (req, res) {
     });
 });
 
-app.get('/stock/:stockname/:start/:end', function (req, res) {
+app.get('/addstock/:stockname/:start/:end', function (req, res) {
     var apiKey = "zpY11hn5Z2iCF1n4hHwt";
     var startDate = req.params.start; //'2014-01-01';
     var endDate = req.params.end; //'2016-12-31';
@@ -61,27 +61,32 @@ app.get('/stock/:stockname/:start/:end', function (req, res) {
         });
         response.on('end', function () {
             var obj = JSON.parse(output);
-            MongoClient.connect(mongoUrl, function (err, db) {
-                db.collection('stocks').findOne({"stockname": obj.dataset.dataset_code}, function (err, item) {
-                    if (item) {
-                        db.close();
-                        console.log("stock find");
-                        res.send(null)
-                    } else {
-                        db.collection('stocks').insertOne({
-                            "stockname": obj.dataset.dataset_code,
-                            "stockDescription": obj.dataset.description,
-                            "data": obj.dataset.data
-                        }, function (err, result) {
-                            if (!err) {
-                                console.log("stock added successfuly");
-                                db.close();
-                                res.send(null);
-                            }
-                        });
-                    }
+            if (obj.quandl_error) {
+                console.log('incorrect stock name');
+                res.send(null)
+            } else {
+                MongoClient.connect(mongoUrl, function (err, db) {
+                    db.collection('stocks').findOne({"stockname": obj.dataset.dataset_code}, function (err, item) {
+                        if (item) {
+                            db.close();
+                            console.log("stock find");
+                            res.send(null)
+                        } else {
+                            db.collection('stocks').insertOne({
+                                "stockname": obj.dataset.dataset_code,
+                                "stockDescription": obj.dataset.description,
+                                "data": obj.dataset.data
+                            }, function (err, result) {
+                                if (!err) {
+                                    console.log("stock added successfuly");
+                                    db.close();
+                                    res.send(null);
+                                }
+                            });
+                        }
+                    });
                 });
-            });
+            }
         });
     });
 });
