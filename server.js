@@ -16,23 +16,6 @@ app.get('/', function (req, res) {
 
 app.get('/stock', function (req, res) {
 
-    /*var apiKey = "zpY11hn5Z2iCF1n4hHwt";
-     var startDate = '2014-01-01';
-     var endDate = '2016-12-31';
-     var stockName = 'amzn';
-     var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockName + '.json?column_index=4&start_date=' + startDate + '&end_date=' + endDate + '&collapse=monthly&api_key=' + apiKey;
-
-     https.get(url, function (response) {
-     var output = '';
-     response.setEncoding('utf8');
-     response.on('data', function (body) {
-     output += body;
-     });
-     response.on('end', function () {
-     var obj = JSON.parse(output);
-     res.send(obj);
-     });
-     });*/
     MongoClient.connect(mongoUrl, function (err, db) {
         db.collection('stocks').find().toArray(function (err, items) {
             if (!items) {
@@ -91,6 +74,17 @@ app.get('/addstock/:stockname/:start/:end', function (req, res) {
     });
 });
 
+app.get('/deletestock/:stockname', function (req, res) {
+    var stockname = req.params.stockname;
+
+    MongoClient.connect(mongoUrl, function (err, db) {
+        db.collection('stocks').remove({"stockname": stockname});
+        console.log('stock removed');
+        db.close();
+        res.send(null);
+    });
+
+});
 app.listen(process.env.PORT || 3000, function () {
     console.log('Listening port 3000');
 });

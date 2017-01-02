@@ -12,6 +12,7 @@ $(".add_stock").on("click", function () {
     var url = 'http://localhost:3000/addstock/' + $('.stockname').val() + '/2014-01-01/2016-12-31';
     xmlHttp.open("GET", url, false);
     xmlHttp.send(null);
+    location.reload();
 });
 
 function getSetOfXY(objec) {
@@ -35,11 +36,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
 
 var data = {
     labels: dataSet[0]['x-data'],
-    datasets: [
-    ]
+    datasets: []
 };
 
-for (var i = 0; i < dataSet.length; i++){
+for (var i = 0; i < dataSet.length; i++) {
     data.datasets.push(
         {
             label: dataSet[i].stockname,
@@ -66,8 +66,6 @@ for (var i = 0; i < dataSet.length; i++){
     );
 }
 
-//console.log(data);
-
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: data,
@@ -81,7 +79,33 @@ var myLineChart = new Chart(ctx, {
 });
 
 
-/*var xmlHttp = new XMLHttpRequest();
- var url = 'http://localhost:3000/stock/IBM/2014-01-01/2016-12-31';
- xmlHttp.open("GET", url, false);
- xmlHttp.send(null);*/
+var labels = document.querySelector(".labels-js");
+for (var i = 0; i < dataSet.length; i++) {
+    var label = document.createElement("div");
+    label.setAttribute('class', 'col-md-3');
+    var labelName = document.createElement("div");
+    var labelDescription = document.createElement("div");
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = 'delete';
+    deleteButton.setAttribute('data-name', dataSet[i].stockname);
+    deleteButton.setAttribute('class', 'btn, btn-default');
+    deleteButton.setAttribute('id', 'delete');
+    labelName.innerText = dataSet[i].stockname;
+    labelDescription.innerText = dataSet[i].stockDescription;
+    label.appendChild(labelName);
+    label.appendChild(labelDescription);
+    label.appendChild(deleteButton);
+    labels.appendChild(label);
+}
+
+var deleteButtons = document.querySelectorAll('#delete');
+deleteButtons.forEach(function (item, index) {
+    item.addEventListener('click', function () {
+        var xmlHttp = new XMLHttpRequest();
+        var url = 'http://localhost:3000/deletestock/' + item.getAttribute('data-name');
+        xmlHttp.open("GET", url, false);
+        xmlHttp.send(null);
+        location.reload();
+    });
+
+});
