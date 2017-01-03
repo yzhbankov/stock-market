@@ -6,7 +6,8 @@ var app = express();
 var https = require('https');
 var path = require('path');
 var MongoClient = require('mongodb').MongoClient;
-var mongoUrl = 'mongodb://localhost:27017/stock_market';
+//var mongoUrl = 'mongodb://localhost:27017/stock_market';
+var mongoUrl = 'mongodb://yzhbankov:password1360@ds151018.mlab.com:51018/heroku_xgxc5fqc';
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 

@@ -122,8 +122,8 @@ deleteButtons.forEach(function (item, index) {
 
 });
 
-var socket = io('http://localhost:3000');
-
+//var socket = io('http://localhost:3000');
+var socket = io('https://ystockmarket.herokuapp.com');
 socket.on('connect', function () {
     console.log('connected to the server')
 });
