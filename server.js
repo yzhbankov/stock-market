@@ -91,8 +91,7 @@ app.get('/deletestock/:stockname', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('connected');
-    //socket.emit('update');
-    socket.on('delete', function(){
+    socket.on('change', function(){
         socket.broadcast.emit('update');
     })
 });
@@ -100,6 +99,3 @@ io.on('connection', function (socket) {
 server.listen(process.env.PORT || 3000, function () {
     console.log('Listening port 3000');
 });
-/*app.listen(process.env.PORT || 3000, function () {
- console.log('Listening port 3000');
- });*/

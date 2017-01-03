@@ -2,7 +2,16 @@
  * Created by Iaroslav Zhbankov on 02.01.2017.
  */
 var colors = ['#FF5733', '#FFC733', '#83FF33', '#33FFF6', '#3393FF', '#5533FF', '#DD33FF', '#FF336E', '#FF3333', '#33FF99', '#857347', '#47856F'];
-
+function getLastYearTime() {
+    var date = new Date();
+    var year = +(date.getFullYear());
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+    var day = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+    return year + "-" + month + "-" + day;
+}
+var endDate = getLastYearTime();
 var xmlHttp = new XMLHttpRequest();
 var url = 'http://localhost:3000/stock';
 xmlHttp.open("GET", url, false);
@@ -10,26 +19,13 @@ xmlHttp.send(null);
 var dataSet = JSON.parse(xmlHttp.responseText);
 $(".add_stock").on("click", function () {
     var xmlHttp = new XMLHttpRequest();
-    var url = 'http://localhost:3000/addstock/' + $('.stockname').val() + '/2014-01-01/2016-12-31';
+    var url = 'http://localhost:3000/addstock/' + $('.stockname').val() + '/2014-01-01/' + endDate;
     xmlHttp.open("GET", url, false);
     xmlHttp.send(null);
     location.reload();
+    socket.emit('change');
 });
-/*function getLastYearTime() {
 
-    var date = new Date();
-
-    var year = +(date.getFullYear()) - 1;
-
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-
-    var day  = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-
-    return year + "-" + month + "-" + day;
-
-}*/
 function getSetOfXY(objec) {
     var xData = [];
     var yData = [];
@@ -121,22 +117,20 @@ deleteButtons.forEach(function (item, index) {
         xmlHttp.open("GET", url, false);
         xmlHttp.send(null);
         location.reload();
-        socket.emit('delete');
+        socket.emit('change');
     });
 
 });
-//console.log(00000000000);
+
 var socket = io('http://localhost:3000');
 
-socket.on('connect', function(){
+socket.on('connect', function () {
     console.log('connected to the server')
 });
-socket.on('update', function(){
+socket.on('update', function () {
     location.reload();
 });
-/*socket.emit('update', function(){
-    console.log(1111111111);
-});*/
+
 
 
 
