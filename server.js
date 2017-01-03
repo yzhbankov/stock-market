@@ -11,8 +11,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 
-
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
@@ -91,16 +89,17 @@ app.get('/deletestock/:stockname', function (req, res) {
 
 });
 
-io.on('connection', function(socket){
-    //on user connected
-
-console.log('connected');
-
+io.on('connection', function (socket) {
+    console.log('connected');
+    //socket.emit('update');
+    socket.on('delete', function(){
+        socket.broadcast.emit('update');
+    })
 });
 
 server.listen(process.env.PORT || 3000, function () {
     console.log('Listening port 3000');
 });
 /*app.listen(process.env.PORT || 3000, function () {
-    console.log('Listening port 3000');
-});*/
+ console.log('Listening port 3000');
+ });*/

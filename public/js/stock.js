@@ -121,13 +121,22 @@ deleteButtons.forEach(function (item, index) {
         xmlHttp.open("GET", url, false);
         xmlHttp.send(null);
         location.reload();
+        socket.emit('delete');
     });
 
 });
+//console.log(00000000000);
+var socket = io('http://localhost:3000');
 
-var socket = io('http://localhost');
-socket.on('connect', function(){});
-socket.on('event', function(data){});
-socket.on('disconnect', function(){});
+socket.on('connect', function(){
+    console.log('connected to the server')
+});
+socket.on('update', function(){
+    location.reload();
+});
+/*socket.emit('update', function(){
+    console.log(1111111111);
+});*/
+
 
 
