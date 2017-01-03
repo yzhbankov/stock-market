@@ -19,7 +19,7 @@ xmlHttp.send(null);
 var dataSet = JSON.parse(xmlHttp.responseText);
 $(".add_stock").on("click", function () {
     var xmlHttp = new XMLHttpRequest();
-    var url = 'http://localhost:3000/addstock/' + $('.stockname').val() + '/2014-01-01/' + endDate;
+    var url = 'https://ystockmarket.herokuapp.com/addstock/' + $('.stockname').val() + '/2014-01-01/' + endDate;
     xmlHttp.open("GET", url, false);
     xmlHttp.send(null);
     location.reload();
@@ -113,7 +113,7 @@ var deleteButtons = document.querySelectorAll('#delete');
 deleteButtons.forEach(function (item, index) {
     item.addEventListener('click', function () {
         var xmlHttp = new XMLHttpRequest();
-        var url = 'http://localhost:3000/deletestock/' + item.getAttribute('data-name');
+        var url = 'https://ystockmarket.herokuapp.com/deletestock/' + item.getAttribute('data-name');
         xmlHttp.open("GET", url, false);
         xmlHttp.send(null);
         location.reload();
