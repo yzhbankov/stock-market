@@ -13,7 +13,7 @@ function getLastYearTime() {
 }
 var endDate = getLastYearTime();
 var xmlHttp = new XMLHttpRequest();
-var url = 'http://localhost:3000/stock';
+var url = 'https://ystockmarket.herokuapp.com/stock';
 xmlHttp.open("GET", url, false);
 xmlHttp.send(null);
 var dataSet = JSON.parse(xmlHttp.responseText);
