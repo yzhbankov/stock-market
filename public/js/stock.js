@@ -1,7 +1,7 @@
 /**
  * Created by Iaroslav Zhbankov on 02.01.2017.
  */
-var colors = ['#FF5733', '#FFC733', '#83FF33', '#33FFF6', '#3393FF', '#5533FF', '#DD33FF', '#FF336E', '#FF3333','#33FF99', '#857347', '#47856F'];
+var colors = ['#FF5733', '#FFC733', '#83FF33', '#33FFF6', '#3393FF', '#5533FF', '#DD33FF', '#FF336E', '#FF3333', '#33FF99', '#857347', '#47856F'];
 
 var xmlHttp = new XMLHttpRequest();
 var url = 'http://localhost:3000/stock';
@@ -15,7 +15,21 @@ $(".add_stock").on("click", function () {
     xmlHttp.send(null);
     location.reload();
 });
+/*function getLastYearTime() {
 
+    var date = new Date();
+
+    var year = +(date.getFullYear()) - 1;
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + "-" + month + "-" + day;
+
+}*/
 function getSetOfXY(objec) {
     var xData = [];
     var yData = [];
@@ -110,3 +124,10 @@ deleteButtons.forEach(function (item, index) {
     });
 
 });
+
+var socket = io('http://localhost');
+socket.on('connect', function(){});
+socket.on('event', function(data){});
+socket.on('disconnect', function(){});
+
+

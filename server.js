@@ -4,18 +4,23 @@
 var express = require('express');
 var app = express();
 var https = require('https');
+var path = require('path');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/stock_market';
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
-app.use('/', express.static('public'));
 
+
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
     res.sendFile("index.html");
 });
 
 app.get('/stock', function (req, res) {
-
+    io.emit('stock', 'sdfasfdasfsfasfasdf');
     MongoClient.connect(mongoUrl, function (err, db) {
         db.collection('stocks').find().toArray(function (err, items) {
             if (!items) {
@@ -81,11 +86,21 @@ app.get('/deletestock/:stockname', function (req, res) {
         db.collection('stocks').remove({"stockname": stockname});
         console.log('stock removed');
         db.close();
-        res.send(null);
+        res.redirect('/');
     });
 
 });
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Listening port 3000');
+
+io.on('connection', function(socket){
+    //on user connected
+
+console.log('connected');
+
 });
 
+server.listen(process.env.PORT || 3000, function () {
+    console.log('Listening port 3000');
+});
+/*app.listen(process.env.PORT || 3000, function () {
+    console.log('Listening port 3000');
+});*/
